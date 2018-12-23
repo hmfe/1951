@@ -1,9 +1,12 @@
 FROM node:11.3.0 AS builder
-COPY . /app/
+COPY package.json /app/
 WORKDIR /app/
-RUN npm install && npm build
+RUN ["yarn", "install"]
+COPY src /app/src
+COPY public /app/public
+RUN ["yarn", "run", "build"]
 
 #todo: use nginx alpine
-FROM sdelrio/docker-minimal-nginx AS production
+FROM nginx:alpine AS production
 COPY --from=builder /app/build/ /usr/share/nginx/html/
-EXPOSE 8080
+EXPOSE 80

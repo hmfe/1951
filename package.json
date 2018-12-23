@@ -2,6 +2,7 @@
   "name": "hmfe-demo",
   "version": "1.0.0",
   "main": "src/index.js",
+  "homepage": "https://wpq0.github.io/1951",
   "author": "hvu",
   "license": "MIT",
   "private": true,
@@ -21,10 +22,13 @@
     "@types/react-dom": "16.0.11",
     "@types/react-router": "^4.4.3",
     "@types/react-router-dom": "^4.3.1",
+    "gh-pages": "^2.0.1",
     "node-sass": "^4.11.0",
     "react-scripts": "2.1.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
