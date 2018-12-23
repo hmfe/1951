@@ -1,0 +1,35 @@
+@import '../_shared/_mixin';
+
+.nav {
+    ul {
+        @include reset-list();
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: stretch;
+    }
+
+    li {
+        flex: 1;
+        display: flex;
+        align-content: stretch;
+    }
+
+    a {
+        display: block;
+        width: 100%;
+        padding: 0.5rem;
+        text-align: left;
+        text-decoration: none;
+        background: #dedede;
+        cursor: pointer;
+        &:link, &:visited {
+            color: inherit;
+        }
+
+        &.active {
+            background: #030303;
+            color: white;
+        }
+    }
+}

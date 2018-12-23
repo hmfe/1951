@@ -1,0 +1,104 @@
+@import "../_shared/_mixin";
+
+@keyframes loading-bg {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+.auto-complete {
+    position: relative;
+    &__wrapper {
+        display: block;
+        position: relative;
+        width: 100%;
+    }
+
+    &__search-box {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 0 0.5rem;
+        font-size: 1rem;
+        line-height: 2rem;
+        background: none;
+        border: 1px solid #dedede;
+        &:focus {
+            outline: none;
+            border-color: #030303;
+        }
+    }
+
+    &__clear-search-btn {
+        $icon-size: 24;
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        padding: 0;
+        margin: 0;
+        width: #{$icon-size * 1.5}px;
+        height: #{$icon-size * 1.5}px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        background-image: #{cross-mark($icon-size, 1, black)};
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    &__item-list {
+        position: absolute;
+        width: 100%;
+        border: 1px solid #cccccc;
+        background: white;
+        transform: translate(0, 2px);
+        &--searching {
+            background: linear-gradient(
+                to right,
+                #eeeeee 10%,
+                #dddddd 18%,
+                #eeeeee 33%
+            );
+            background-size: 400% 400%;
+            animation: loading-bg 1000ms ease infinite;
+            animation-fill-mode: forwards;
+            min-height: 2rem;
+        }
+
+        &--error {
+            padding: 0.5rem;
+            border-color: crimson;
+            color: crimson;
+        }
+
+        &--empty:not(&--searching):not(&--error) {
+            border: none;
+        }
+    }
+
+    &__item {
+        line-height: 2rem;
+        padding: 0 0.5rem;
+        cursor: pointer;
+        &:first-child {
+            padding-top: 0.5rem;
+        }
+        &:last-child {
+            padding-bottom: 0.5rem;
+        }
+        &--highlighted {
+            background: #dedede;
+        }
+
+        strong {
+            text-decoration: underline;
+        }
+    }
+}
