@@ -1,15 +1,18 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import AutoComplete from "../auto-complete";
 import SearchHistory from "../search-history";
-import { useAutoCompleteReducer } from "./reducers";
+import { reducer, initialState, LoadSearchTerms } from "./reducers";
+import useTitle from "../../utils/useDocumentTitle";
 
 export const Task3Context = createContext();
 
 export default () => {
-    const [state, dispatch] = useAutoCompleteReducer();
-    useEffect(() => {
-        document.title = "Task 3 - Autocomplete";
+    const [state, dispatch] = useReducer(reducer, initialState);
+    useTitle("Task 3 - Autocomplete");
+    useEffect(()=> {
+        dispatch({ type: LoadSearchTerms });
     }, []);
+
     // the auto-complete is wrapped inside a non-submitting form. Should there be need for server-side fallback, we can still do it by removing the event handler on the form
     return (
         <Task3Context.Provider value={{ state, dispatch }}>

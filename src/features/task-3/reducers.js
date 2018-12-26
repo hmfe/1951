@@ -1,4 +1,14 @@
-import { useReducer } from "react";
+import { load, save } from "../../service/storage";
+
+const NameSpace = "AutoComplete:";
+export const SearchQueryChanged = `${NameSpace}SearchQueryChanged`;
+export const SearchCompleted = `${NameSpace}SearchCompleted`;
+export const SearchError = `${NameSpace}SearchError`;
+export const Searching = `${NameSpace}Searching`;
+export const RemoveSearchTerm = `${NameSpace}RemoveSearchResult`;
+export const AddSearchTerm = `${NameSpace}AddSearchResult`;
+export const ClearSearchTerms = `${NameSpace}ClearSearchTerms`;
+export const LoadSearchTerms = `${NameSpace}LoadSearchTerms`;
 
 const getHistoryItemKey = item => item.trim().toLocaleUpperCase();
 
@@ -31,15 +41,9 @@ const removeSearchHistoryItem = (itemKey, history) => {
     return result;
 };
 
-const initialState = {
-    items: [],
-    searching: false,
-    error: null,
-    searchQuery: "",
-    searchTermsHistory: new Map()
-};
 
-const reducer = (state, action) => {
+
+export const reducer = (state, action) => {
     switch (action.type) {
         case SearchQueryChanged:
             return { ...state, searchQuery: action.value };
@@ -54,39 +58,48 @@ const reducer = (state, action) => {
             };
         case SearchError:
             return { ...state, searching: false, error: action.error };
-        case AddSearchTerm:
+        // TODO: orthogonal concerns like persisting and loading data from local storage should be put in a middleware
+        case AddSearchTerm: {
+            const added = addSearchHistoryItem(
+                action.value,
+                state.searchTermsHistory
+            );
+            save(added);
             return {
                 ...state,
                 searchQuery: action.value,
-                searchTermsHistory: addSearchHistoryItem(
-                    action.value,
-                    state.searchTermsHistory
-                ),
+                searchTermsHistory: added,
                 items: []
             };
-        case RemoveSearchTerm:
+        }
+        case RemoveSearchTerm: {
+            const removed = removeSearchHistoryItem(
+                action.itemKey,
+                state.searchTermsHistory
+            );
+            save(removed);
             return {
                 ...state,
-                searchTermsHistory: removeSearchHistoryItem(
-                    action.itemKey,
-                    state.searchTermsHistory
-                )
+                searchTermsHistory: removed
             };
-        case ClearSearchTerms:
-            return { ...state, searchTermsHistory: new Map() };
+        }
+        case ClearSearchTerms: {
+            const cleared = new Map();
+            save(cleared);
+            return { ...state, searchTermsHistory: cleared };
+        }
+        case LoadSearchTerms: {
+            return { ...state, searchTermsHistory: load() }
+        }
         default:
             return state;
     }
 };
 
-const NameSpace = "AutoComplete:";
-
-export const SearchQueryChanged = `${NameSpace}SearchQueryChanged`;
-export const SearchCompleted = `${NameSpace}SearchCompleted`;
-export const SearchError = `${NameSpace}SearchError`;
-export const Searching = `${NameSpace}Searching`;
-export const RemoveSearchTerm = `${NameSpace}RemoveSearchResult`;
-export const AddSearchTerm = `${NameSpace}AddSearchResult`;
-export const ClearSearchTerms = `${NameSpace}ClearSearchTerms`;
-
-export const useAutoCompleteReducer = () => useReducer(reducer, initialState);
+export const initialState = {
+    items: [],
+    searching: false,
+    error: null,
+    searchQuery: "",
+    searchTermsHistory: new Map()
+};

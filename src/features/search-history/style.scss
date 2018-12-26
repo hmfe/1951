@@ -1,4 +1,5 @@
 @import '../_shared/_mixin';
+@import "../_shared/_variables";
 
 .search-history {
     &__header {
@@ -26,15 +27,15 @@
     &__item {
         display: flex;
         align-items: center;
-        border-bottom: 1px solid #dedede;
+        border-bottom: 1px solid $secondary-color;
         &:first-child {
-            border-top: 1px solid #dedede;
+            border-top: 1px solid $secondary-color;
         }
         a {
             display: block;
             line-height: 2.5rem;
             &:link, &:visited {
-                color: #030303;
+                color: $primary-color;
             }
         }
 
@@ -42,7 +43,7 @@
             margin-left: auto;
             margin-right: 1rem;
             font-size: 75%;
-            color: #666;
+            color: lighten($primary-color, 50%);
         }
     }
 

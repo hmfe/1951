@@ -15,9 +15,9 @@ const formatTime = time =>
 const guessWookieepediaUrl = name =>
   `http://starwars.wikia.com/wiki/${name.replace(/\W+/, "_")}`;
 
-const SearchItem = ({ key, title, time, removeHandler }) => {
+const SearchItem = ({ title, time, removeHandler }) => {
   return (
-    <li key={key} className="search-history__item">
+    <li className="search-history__item">
       <a href={guessWookieepediaUrl(title)} target="_wookieepedia">
         {title}
       </a>

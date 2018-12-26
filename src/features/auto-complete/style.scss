@@ -1,4 +1,5 @@
 @import "../_shared/_mixin";
+@import "../_shared/_variables";
 
 @keyframes loading-bg {
     0% {
@@ -27,10 +28,10 @@
         font-size: 1rem;
         line-height: 2rem;
         background: none;
-        border: 1px solid #dedede;
+        border: 1px solid $secondary-color;
         &:focus {
             outline: none;
-            border-color: #030303;
+            border-color: $primary-color;
         }
     }
 
@@ -48,7 +49,7 @@
         cursor: pointer;
         background: none;
         border: none;
-        background-image: #{cross-mark($icon-size, 1, black)};
+        background-image: #{cross-mark($icon-size, 1)};
         background-position: center center;
         background-repeat: no-repeat;
     }
@@ -68,14 +69,14 @@
             );
             background-size: 400% 400%;
             animation: loading-bg 1000ms ease infinite;
-            animation-fill-mode: forwards;
+            animation-fill-mode: both;
             min-height: 2rem;
         }
 
         &--error {
             padding: 0.5rem;
-            border-color: crimson;
-            color: crimson;
+            border-color: $error-color;
+            color: $error-color;
         }
 
         &--empty:not(&--searching):not(&--error) {

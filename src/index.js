@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Task3 from "./features/task-3";
 import Task1 from "./features/task-1-delete-button";
 import Navigation from "./features/navigation";
@@ -11,7 +11,6 @@ const App = () => (
         <>
             <Navigation />
             <main>
-                <Redirect from="/" exact to="/task-1" />
                 <Route path="/task-1/"  component={Task1} />
                 <Route path="/task-3/" component={Task3} />
             </main>

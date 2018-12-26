@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
+import useTitle from "../../utils/useDocumentTitle";
 import "./style.scss";
 
 export default () => {
-    useEffect(() => {
-        document.title = "Task 1 - Delete button";
-    }, []);
+    useTitle("Task 1 - Delete button");
     return <button className="btn-delete">Delete</button>
 };

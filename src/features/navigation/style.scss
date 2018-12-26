@@ -1,4 +1,5 @@
 @import '../_shared/_mixin';
+@import "../_shared/_variables";
 
 .nav {
     ul {
@@ -21,14 +22,14 @@
         padding: 0.5rem;
         text-align: left;
         text-decoration: none;
-        background: #dedede;
+        background: $secondary-color;
         cursor: pointer;
         &:link, &:visited {
             color: inherit;
         }
 
         &.active {
-            background: #030303;
+            background: $primary-color;
             color: white;
         }
     }
