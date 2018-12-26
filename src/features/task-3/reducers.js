@@ -89,7 +89,7 @@ export const reducer = (state, action) => {
             return { ...state, searchTermsHistory: cleared };
         }
         case LoadSearchTerms: {
-            return { ...state, searchTermsHistory: load() }
+            return { ...state, searchTermsHistory: load() || new Map() }
         }
         default:
             return state;
