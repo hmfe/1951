@@ -3,8 +3,8 @@ import { ClearSearchTerms, RemoveSearchTerm } from "../task-3/reducers";
 import { Task3Context } from "../task-3";
 import "./style.scss";
 
-const pad2Zeroes = num => num.toString().padStart(2, "0");
-const formatTime = time =>
+const pad2Zeroes = (num: number) => num.toString().padStart(2, "0");
+const formatTime = (time: Date) =>
   time != null
     ? `${time.getFullYear()}-${pad2Zeroes(time.getMonth())}-${pad2Zeroes(
         time.getDate()
@@ -12,10 +12,10 @@ const formatTime = time =>
         time.getMinutes()
       )} ${time.getHours() >= 12 ? "PM" : "AM"}`
     : "";
-const guessWookieepediaUrl = name =>
+const guessWookieepediaUrl = (name: string) =>
   `http://starwars.wikia.com/wiki/${name.replace(/\W+/, "_")}`;
 
-const SearchItem = ({ title, time, removeHandler }) => {
+const SearchItem = ({ title, time, removeHandler }: { title: string, time: Date, removeHandler: any }) => {
   return (
     <li className="search-history__item">
       <a href={guessWookieepediaUrl(title)} target="_wookieepedia">
@@ -56,7 +56,7 @@ export default () => {
         <ul className="search-history__item-list">
           {state.searchTermsHistory &&
             [...state.searchTermsHistory.entries()]
-              .sort(([k1, v1], [k2, v2]) => v2.searchTime - v1.searchTime)
+              .sort(([k1, v1], [k2, v2]) => Number(v2.searchTime) - Number(v1.searchTime))
               .map(([key, value]) => (
                 <SearchItem
                   key={key}

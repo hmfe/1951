@@ -1,4 +1,5 @@
 import { load, save } from "../../service/storage";
+import { Character } from "../../service/api";
 
 const NameSpace = "AutoComplete:";
 export const SearchQueryChanged = `${NameSpace}SearchQueryChanged`;
@@ -10,17 +11,32 @@ export const AddSearchTerm = `${NameSpace}AddSearchResult`;
 export const ClearSearchTerms = `${NameSpace}ClearSearchTerms`;
 export const LoadSearchTerms = `${NameSpace}LoadSearchTerms`;
 
-const getHistoryItemKey = item => item.trim().toLocaleUpperCase();
+export type SearchHistory = Map<string, SearchHistoryEntry>;
+export type SearchHistoryEntry = {
+    searchTerm: string,
+    searchTime: Date
+}
+export type AutoCompleteState = {
+    items: Array<Character>,
+    searching: boolean,
+    error?: { message: string } | null,
+    searchQuery?: string,
+    searchTermsHistory: SearchHistory
+}
+export type AutoCompleteAction = {
+    type: string
+} | any;
 
-const addSearchHistoryItem = (item, history) => {
+const getHistoryItemKey = (item: string) => item.trim().toLocaleUpperCase();
+
+const addSearchHistoryItem = (item: string, history: SearchHistory) => {
     let result;
     if (item != null && item.length > 0) {
         result = new Map(history.entries());
         const itemKey = getHistoryItemKey(item);
-
-        if (result.has(itemKey)) {
-            const curent = result.get(itemKey);
-            result.set(itemKey, { ...curent, searchTime: new Date() });
+        const current = result.get(itemKey);
+        if (current != null) {
+            result.set(itemKey, { ...current, searchTime: new Date() });
         } else {
             result.set(itemKey, { searchTerm: item, searchTime: new Date() });
         }
@@ -30,7 +46,7 @@ const addSearchHistoryItem = (item, history) => {
     return result;
 };
 
-const removeSearchHistoryItem = (itemKey, history) => {
+const removeSearchHistoryItem = (itemKey: string, history: SearchHistory) => {
     let result;
     if (itemKey != null) {
         result = new Map(history.entries());
@@ -43,7 +59,7 @@ const removeSearchHistoryItem = (itemKey, history) => {
 
 
 
-export const reducer = (state, action) => {
+export const reducer = (state: AutoCompleteState, action: AutoCompleteAction) => {
     switch (action.type) {
         case SearchQueryChanged:
             return { ...state, searchQuery: action.value };
@@ -96,7 +112,7 @@ export const reducer = (state, action) => {
     }
 };
 
-export const initialState = {
+export const initialState: AutoCompleteState = {
     items: [],
     searching: false,
     error: null,

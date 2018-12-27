@@ -1,10 +1,10 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import AutoComplete from "../auto-complete";
 import SearchHistory from "../search-history";
-import { reducer, initialState, LoadSearchTerms } from "./reducers";
+import { reducer, initialState, LoadSearchTerms, AutoCompleteState } from "./reducers";
 import useTitle from "../../utils/useDocumentTitle";
 
-export const Task3Context = createContext();
+export const Task3Context = createContext({ state: initialState, dispatch:(val: any)=>{} });
 
 export default () => {
     const [state, dispatch] = useReducer(reducer, initialState);

@@ -22,7 +22,7 @@ import classNames from "classnames";
 import { fetchSearchResult } from "../../service/api";
 import "./style.scss";
 
-const itemTextWithHighlightedTerm = (input, term) => {
+const itemTextWithHighlightedTerm = (input: string, term?: string) => {
   if (input == null) {
     return <span>Empty input</span>;
   }
@@ -38,7 +38,7 @@ const itemTextWithHighlightedTerm = (input, term) => {
 
 export default () => {
   const { state, dispatch } = useContext(Task3Context);
-  const searchQueryStreamContainer = useRef(new Subject());
+  const searchQueryStreamContainer = useRef(new Subject<string>());
 
   useEffect(() => {
     const subscription = searchQueryStreamContainer.current
@@ -91,7 +91,8 @@ export default () => {
           searchQueryStreamContainer.current.next(value);
         }}
         renderMenu={children => {
-          const hasError = state.error != null;
+          const errorMsg = state.error && state.error.message;
+          const hasError = errorMsg != null;
           const isEmpty = state.items == null || state.items.length === 0;
           const itemListClass = classNames("auto-complete__item-list", {
             "auto-complete__item-list--searching": state.searching,
@@ -102,7 +103,7 @@ export default () => {
             <div className={itemListClass}>
               {hasError ? (
                 <span>
-                  An error occured during your last query: {state.error.message}
+                  An error occured during your last query: {errorMsg || ''}
                 </span>
               ) : (
                 children

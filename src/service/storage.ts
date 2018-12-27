@@ -1,24 +1,26 @@
+import { SearchHistory } from "../features/task-3/reducers";
+
 const defaultKey = "search-history";
 
-export const save = (history, key = defaultKey) => {
+export const save = (history: SearchHistory, key = defaultKey) => {
     localStorage.setItem(key, JSON.stringify([...history.entries()]));
 }
 
-const parseSearchTime = (k,v) => {
-    if (typeof(v) === "string" && k === "searchTime") {
-        return new Date(v);
+const parseSearchTime = (key: string, value : any) => {
+    if (typeof(value) === "string" && key === "searchTime") {
+        return new Date(value);
     }
     else {
-        return v;
+        return value;
     }
 }
 
-export const load = (key = defaultKey) => {
+export const load = (key = defaultKey): SearchHistory | null => {
     const saved = localStorage.getItem(key);
     let result;
     if (typeof(saved) === "string") {
         try {
-            result = new Map(JSON.parse(saved, parseSearchTime));
+            result = new Map(JSON.parse(saved, parseSearchTime)) as SearchHistory;
         }
         catch (error) {
             console.error("Search history JSON could not be parsed", saved);
