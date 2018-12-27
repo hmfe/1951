@@ -1,0 +1,36 @@
+@import '../_shared/_mixin';
+@import "../_shared/_variables";
+
+.nav {
+    ul {
+        @include reset-list();
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: stretch;
+    }
+
+    li {
+        flex: 1;
+        display: flex;
+        align-content: stretch;
+    }
+
+    a {
+        display: block;
+        width: 100%;
+        padding: 0.5rem;
+        text-align: left;
+        text-decoration: none;
+        background: $secondary-color;
+        cursor: pointer;
+        &:link, &:visited {
+            color: inherit;
+        }
+
+        &.active {
+            background: $primary-color;
+            color: white;
+        }
+    }
+}

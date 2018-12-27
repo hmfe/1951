@@ -1,0 +1,43 @@
+@import '../_shared/_mixin';
+
+$spacing: 0.5rem;
+$height: 40px;
+$color: black;
+$background-from: #f4b05d;
+$background-to: #f19639;
+$border: #a0a0a0;
+$icon-size: 30;
+$icon-background: white;
+
+.btn-delete {
+    display: block;
+    min-height: calc(#{$height} + #{$spacing * 2});
+    padding-left: $spacing;
+    padding-right: calc(#{$height} + #{$spacing * 2});
+    position: relative;
+    border: 1px solid $border;
+    font-size: 1rem;
+    font-weight: bold;
+    background: linear-gradient(to right, #{$background-from}, #{$background-to});
+    color: $color;
+    appearance: none;
+    cursor: pointer;
+
+    &:hover {
+        background: linear-gradient(to right, #{ mix($background-from, #fff, 80%)}, #{ mix($background-to, #fff, 80%)});
+    }
+
+    &:after {
+        content: #{cross-mark($icon-size, 3, $color)};
+        display: block;
+        width: #{$icon-size}px;
+        height: #{$icon-size}px;
+        padding: 5px;
+        position: absolute;
+        top: 50%;
+        right: $spacing;
+        transform: translate(0, -50%);
+        border-radius: 50%;
+        background-color: $icon-background;
+    }
+}

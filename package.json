@@ -1,0 +1,42 @@
+{
+  "name": "hmfe-demo",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "hvu",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "classnames": "2.2.6",
+    "react": "16.7.0-alpha.2",
+    "react-autocomplete": "1.8.1",
+    "react-dom": "16.7.0-alpha.2",
+    "react-router": "4.3.1",
+    "react-router-dom": "4.3.1",
+    "rxjs": "6.3.3"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.6",
+    "@types/es6-promise": "^3.3.0",
+    "@types/node": "^10.12.18",
+    "@types/react": "16.7.13",
+    "@types/react-autocomplete": "1.8.4",
+    "@types/react-dom": "16.0.11",
+    "@types/react-router": "^4.4.3",
+    "@types/react-router-dom": "^4.3.1",
+    "node-sass": "^4.11.0",
+    "react-scripts": "2.1.1",
+    "typescript": "^3.2.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

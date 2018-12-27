@@ -1,0 +1,8 @@
+@mixin reset-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+@function cross-mark($icon-size: 30, $stroke-width: 3, $color: black) {
+    @return "url(\"data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' width='#{$icon-size}' height='#{$icon-size}' viewbox='0 0 #{$icon-size} #{$icon-size}'><path stroke='#{$color}' stroke-width='#{$stroke-width}' d='M#{$icon-size / 3},#{$icon-size / 3} L#{$icon-size * 2 / 3},#{$icon-size * 2 / 3} M#{$icon-size * 2 / 3},#{$icon-size / 3} L#{$icon-size / 3},#{$icon-size * 2 / 3}' /></svg>\")";
+}
